@@ -55,13 +55,13 @@ public class SegmentMap extends LinkedHashMap<String, Color>
 		if (addSegment)
 		{
 			newSegmentLocations.add(at(0)); // Append the old tail location into the new segment locations
-			ΔheadIndex++;				  // list if addSegment = true (i.e the snake finished digesting something)
+			ΔheadIndex++;				        // list if addSegment = true (i.e the snake finished digesting something)
 		}
 
 		for (int i = 0; i < size() - 1; i++)
 		{
-			newSegmentLocations.add(at(i + 1)); // Move every segment location to the location of the one
-																					// in front of it
+			newSegmentLocations.add(at(i + 1)); // Move every segment location to the location of the segment in front of it
+
 		}
 
 		/*
@@ -76,18 +76,13 @@ public class SegmentMap extends LinkedHashMap<String, Color>
 			newSegmentLocations.remove(newHeadLoc.toString());
 		}
 
-		newSegmentLocations.add(newHeadLoc); // Add the new head location to the end of the
-																				// newSegmentLocations list since it wasn't added yet
+		newSegmentLocations.add(newHeadLoc); // Add the new head location to the end of the newSegmentLocations list since it wasn't added yet
 		
 		for (String s : getKeySetArray())
-		{
 			remove(s);
-		}
 		
-		for (String s : newSegmentLocations.getKeySetArray())
-		{
+		for (String s : newSegmentLocations.getKeySetArray()) // Move all keys from newSegmentLocations into this map
 			put(s, newSegmentLocations.get(s));
-		}
 				
 		setColors();
 		

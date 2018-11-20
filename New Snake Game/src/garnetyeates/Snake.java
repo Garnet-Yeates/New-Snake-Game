@@ -429,11 +429,8 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		
 		boolean addSegment = false;
 		
-		if (segmentsToBeAdded > 0)
-		{
-			addSegment = true;
-		}
-		
+		if (segmentsToBeAdded > 0) addSegment = true;
+	
 		headIndex += segmentLocations.move(newHeadLoc, addSegment);
 	
 		numSquaresFilled = segmentLocations.size() + digestMap.size() + segmentsToBeAdded - numStartingSegments;
@@ -490,9 +487,6 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 				directionStrokes.add(directionToAdd);
 		}
 	}
-
-	/** The delay that the game timer will have when the cannibal buff is active */
-	private int CANNIBAL_BUFF_MODIFIED_DELAY = 85;
 
 	/**
 	 * Constant that defines the delay of the buff timer. Set to 8 times a second.
