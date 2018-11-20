@@ -426,40 +426,18 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 	private void move(ArrayPoint newHeadLoc)
 	{
 		clearSegmentsFromMap();
-
-		SegmentMap newSegmentLocations = segmentLocations.cloneEmpty();
-
+		
+		boolean addSegment = false;
+		
 		if (segmentsToBeAdded > 0)
 		{
-			segmentsToBeAdded--;
-			newSegmentLocations.add(segmentLocations.at(0)); // Append the old tail location into the new segment locations
-																				// list if segmentsToBeAdded > 0 (i.e the snake ate a fruit)
-			headIndex++; // (this increases the length of the Snake by 1)
+			addSegment = true;
 		}
-
-		for (int i = 0; i < segmentLocations.size() - 1; i++)
-		{
-			newSegmentLocations.add(segmentLocations.at(i + 1)); // Move every segment location to the location of the one
-																					// in front of it
-		}
-
-		/*
-		 * Remove in case newHeadLoc is equivalent to another body segment location (i.e
-		 * the snake hit itself). This makes it so that instead of replacing the body
-		 * segment key with newHeadLoc, it adds newHeadLoc to the end of the list so
-		 * that it's actually at the head location.
-		 */
-		if (newSegmentLocations.containsKey(newHeadLoc.toString()))
-		{
-			headIndex--;
-			newSegmentLocations.remove(newHeadLoc.toString());
-		}
-
-		newSegmentLocations.put(newHeadLoc.toString(), null); // Add the new head location to the end of the
-																				// newSegmentLocations list since it wasn't added yet
-		segmentLocations = newSegmentLocations;
-		segmentLocations.setColors();
+		
+		headIndex += segmentLocations.move(newHeadLoc, addSegment);
+	
 		numSquaresFilled = segmentLocations.size() + digestMap.size() + segmentsToBeAdded - numStartingSegments;
+		
 		updateProgress();
 		updateDelay();
 		addSegmentsToMap();

@@ -46,6 +46,53 @@ public class SegmentMap extends LinkedHashMap<String, Color>
 		for (Color c : colors)
 			addFadeColor(c);
 	}
+	
+	public int move(ArrayPoint newHeadLoc, boolean addSegment)
+	{
+		int ΔheadIndex = 0;
+		SegmentMap newSegmentLocations = this.cloneEmpty();
+
+		if (addSegment)
+		{
+			newSegmentLocations.add(at(0)); // Append the old tail location into the new segment locations
+			ΔheadIndex++;				  // list if addSegment = true (i.e the snake finished digesting something)
+		}
+
+		for (int i = 0; i < size() - 1; i++)
+		{
+			newSegmentLocations.add(at(i + 1)); // Move every segment location to the location of the one
+																					// in front of it
+		}
+
+		/*
+		 * Remove in case newHeadLoc is equivalent to another body segment location (i.e
+		 * the snake hit itself). This makes it so that instead of replacing the body
+		 * segment key with newHeadLoc, it adds newHeadLoc to the end of the list so
+		 * that it's actually at the head location.
+		 */
+		if (newSegmentLocations.containsKey(newHeadLoc.toString()))
+		{
+			ΔheadIndex--;
+			newSegmentLocations.remove(newHeadLoc.toString());
+		}
+
+		newSegmentLocations.add(newHeadLoc); // Add the new head location to the end of the
+																				// newSegmentLocations list since it wasn't added yet
+		
+		for (String s : getKeySetArray())
+		{
+			remove(s);
+		}
+		
+		for (String s : newSegmentLocations.getKeySetArray())
+		{
+			put(s, newSegmentLocations.get(s));
+		}
+				
+		setColors();
+		
+		return ΔheadIndex;
+	}
 
 	/**
 	 * Sets the Colors of every key in this SegmentMap. These colors depend on the
