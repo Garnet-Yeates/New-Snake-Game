@@ -104,7 +104,9 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 
 		numStartingSegments = colors.length;
 		if (numStartingSegments < 3)
+		{
 			numStartingSegments = 3;
+		}
 
 		segmentLocations = new SegmentMap(colors);
 		addInitialSegmentsToMap();
@@ -124,9 +126,16 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		buffClock.start();
 
 		for (int i = 0; i < map.length; i++)
+		{
 			for (int l = 0; l < map[i].length; l++)
+			{
 				if (map[i][l].equals(" "))
+				{
 					coverableArea++;
+
+				}
+			}
+		}
 		coverableArea -= numStartingSegments;
 
 		headIndex = segmentLocations.size() - 1;
@@ -191,9 +200,13 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 	{
 		// debug();
 		if (cannibalBuff)
+		{
 			borderColor = Color.WHITE;
+		}
 		else
+		{
 			borderColor = Color.BLACK;
+		}
 
 		if (!dead)
 		{
@@ -203,6 +216,10 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 			updateDirectionField();
 			preMove();
 			frame.updateStats();
+		}
+		else
+		{
+			timer.stop();
 		}
 	}
 
@@ -359,7 +376,8 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		{
 			eat(Color.DARK_GRAY);
 			move(bodyLoc);
-		} else if (mortal)
+		}
+		else if (mortal)
 		{
 			dead = true;
 			move(bodyLoc);
@@ -428,8 +446,11 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		clearSegmentsFromMap();
 		
 		boolean addSegment = false;
-		
-		if (segmentsToBeAdded > 0) addSegment = true;
+		if (segmentsToBeAdded > 0)
+		{
+			segmentsToBeAdded--;
+			addSegment = true;
+		}
 	
 		headIndex += segmentLocations.move(newHeadLoc, addSegment);
 	
@@ -481,10 +502,13 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		if (directionToAdd != null)
 		{
 			if (directionStrokes.size() == 0)
+			{
 				directionStrokes.add(directionToAdd);
-			else if (directionStrokes.get(directionStrokes.size() - 1) != directionToAdd
-					&& directionStrokes.size() < directionCacheSize)
+			}
+			else if (directionStrokes.get(directionStrokes.size() - 1) != directionToAdd && directionStrokes.size() < directionCacheSize)
+			{
 				directionStrokes.add(directionToAdd);
+			}
 		}
 	}
 
@@ -511,8 +535,6 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 	 * soon. The closer the buff is to running out, the faster the blink
 	 */
 	private static final ArrayList<Double> BLINK_TIMES = arrayToList(BLINK_ARRAY);
-
-	private boolean buffsActive = false;
 
 	/**
 	 * This value switches between true and false whenever the remaining time of the
@@ -547,20 +569,6 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 		public void actionPerformed(ActionEvent e)
 		{
 			doCannibalBuffTick();
-			updateBuffStatusField();
-		}
-
-		/**
-		 * Updates the buffsActive field depending on whether or not there are any
-		 * active buffs If any buffs are active, buffsActive will be true. If no buffs
-		 * are active it will be set to false
-		 */
-		private void updateBuffStatusField()
-		{
-			if (cannibalBuff == false)
-				buffsActive = false;
-			else
-				buffsActive = true;
 		}
 
 		/**
@@ -580,11 +588,18 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 				if (remainingCannibalSeconds < 6)
 				{
 					if (BLINK_TIMES.contains(remainingCannibalSeconds))
+					{
 						cannibalBlink = false;
+					}
 					else
+					{
 						cannibalBlink = true;
-				} else
+					}
+				}
+				else
+				{
 					cannibalBlink = false;
+				}
 			}
 			else
 			{
