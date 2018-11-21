@@ -53,7 +53,7 @@ public class GameFrame extends JFrame
 	private void createSnake()
 	{
 	//	Color[] scheme = new Color[] { Color.white, Color.GREEN };
-		snakePanel = new Snake(GameFrame.this, 50, 110, 65, 80, Snake.rainbowScheme, 3, 6);
+		snakePanel = new Snake(GameFrame.this, 50, 110, 65, 80, Snake.defaultScheme, 3, 6);
 		snakePanel.setForeground(Color.BLACK);
 
 		addKeyListener(snakePanel);
