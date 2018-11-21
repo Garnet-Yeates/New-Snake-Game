@@ -85,8 +85,18 @@ public class Snake extends JPanel implements ActionListener, KeyListener, Compon
 
 	private Timer buffClock;
 
-	public Snake(GameFrame frame, int numHorizontalSquares, int startingDelay, int endingDelay, int progressTillMaxDelay,
-			Color[] colors, int foodValue, int spaceSize)
+	/**
+	 * Its not your fuckin code bitch kill your life
+	 * @param frame
+	 * @param numHorizontalSquares
+	 * @param startingDelay
+	 * @param endingDelay
+	 * @param progressTillMaxDelay
+	 * @param colors
+	 * @param foodValue
+	 * @param spaceSize
+	 */
+	public Snake(GameFrame frame, int numHorizontalSquares, int startingDelay, int endingDelay, int progressTillMaxDelay, Color[] colors, int foodValue, int spaceSize)
 	{
 		this.frame = frame;
 
